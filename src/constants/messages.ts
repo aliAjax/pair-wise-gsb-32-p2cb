@@ -6,5 +6,12 @@ export const messages = {
   emptySpots: '没有符合条件的景点。',
   budgetExceeded: '预算可能超支，请调整景点或交通方式',
   storageRecovered: '本地数据已恢复',
+  mergeSameDay: '来源日和目标日相同，未执行合并',
+  mergeEmptySource: '来源日还没有景点，无法合并复制',
+  mergeDone: (added: number, keptEarlier: number, pending: number) =>
+    `整日合并完成：新并入 ${added} 项，同景点保留较早时间 ${keptEarlier} 项，${pending} 项进入待处理区`,
+  pendingResolved: '待处理景点已加入目标日',
+  pendingDismissed: '已忽略该待处理景点',
+  emptyPending: '待处理区是空的，时间冲突的景点会出现在这里。',
 };
 

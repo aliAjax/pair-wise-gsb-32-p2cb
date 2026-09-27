@@ -17,6 +17,7 @@ TripWeaver 是一款纯前端旅行规划应用，支持创建旅行、探索景
 - 行程详情：查看每日行程、预算图表和共享时间线。
 - 景点探索：按 SpotCategory 搜索和筛选，收藏并加入行程。
 - 行程编排：SortableJS 拖拽排序，实时影响预算计算。
+- 整日合并复制：编排页选择目标日后并入来源日景点，来源日保持不变；同一景点保留开始时间较早的一项，不同景点开始时间相同则进入待处理区（不覆盖原备注和交通方式），待处理项持久化保存。
 - 分享预览：生成可复制的行程文本。
 
 ## 技术栈
@@ -51,6 +52,8 @@ src/
 ## 数据持久化
 
 本地数据通过 `utils/storage.ts` 统一写入 localStorage，并保留 Dexie 数据库对象用于后续 IndexedDB 扩展。版本键来自 `constants/storageVersion.ts`。
+
+整日合并复制分为三层：合并规则在 `utils/dayMerge.ts`（纯函数），数据整理在 `stores/dayPlanStore.ts` + `api/pendingMergeApi.ts`（待处理项随 `pendingMerges` 键持久化，重开页面仍在），页面交互在 `pages/Planner.vue` 与 `components/common/PendingMergePanel.vue`。合并后目标日列表、行程详情与预算统计读取同一份 dayPlanStore 数据。
 
 ## 环境变量
 
